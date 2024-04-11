@@ -13,17 +13,8 @@ export default function ListScreen({ navigation }) {
     for (let i = 0; i < lengthOfArray; i++) {
         blindValues.push(`${small_bind}/${big_bind}`);
     
-        let x;
         let y;
-        if (small_bind <= 100) {
-            x = 2;
-        } else if (small_bind > 100 && small_bind <= 300) {
-            x = 1.8;
-        } else if (small_bind > 300 && small_bind <= 600) {
-            x = 1.6;
-        } else {
-            x = 1.4; 
-        }
+
 
         if (big_bind <= 100) {
             y = 2;
@@ -35,7 +26,7 @@ export default function ListScreen({ navigation }) {
             y = 1.4; 
         }
     
-        small_bind = Math.round(small_bind * x);
+        small_bind = Math.round(small_bind * y);
         big_bind = Math.round(big_bind * y);
     }
 
