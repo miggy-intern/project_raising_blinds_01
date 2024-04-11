@@ -1,44 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from './Styles';
 
-export default function ListScreen({ navigation, route }) {
-    const { jsonData } = route.params;
-    const inputValue = jsonData.inputValue;
+export default function ListScreen({ navigation }) {
     const lengthOfArray = 15;
     const defaultTime = '3:00';
-    let initialBlindFirstNumber = 1;
-    let initialBlindSecondNumber = 2;
-    const Percentage = 50;
+    let small_bind = 1;
+    let big_bind = 2;
     const blindValues = [];
 
     for (let i = 0; i < lengthOfArray; i++) {
-        blindValues.push(`${initialBlindFirstNumber}/${initialBlindSecondNumber}`);
-        initialBlindFirstNumber = Math.round(initialBlindFirstNumber * (1 + Percentage / 100)); 
-        initialBlindSecondNumber = Math.round(initialBlindSecondNumber * (1 + Percentage / 100));
+        blindValues.push(`${small_bind}/${big_bind}`);
+    
+        let x;
+        let y;
+        if (small_bind <= 100) {
+            x = 2;
+        } else if (small_bind > 100 && small_bind <= 300) {
+            x = 1.8;
+        } else if (small_bind > 300 && small_bind <= 600) {
+            x = 1.6;
+        } else {
+            x = 1.4; 
+        }
+
+        if (big_bind <= 100) {
+            y = 2;
+        } else if (big_bind > 100 && big_bind <= 300) {
+            y = 1.8;
+        } else if (big_bind > 300 && big_bind <= 600) {
+            y = 1.6;
+        } else {
+            y = 1.4; 
+        }
+    
+        small_bind = Math.round(small_bind * x);
+        big_bind = Math.round(big_bind * y);
     }
 
     const levels = Array.from({ length: lengthOfArray }, (_, i) => i + 1);
 
-    const [currentLevel, setCurrentLevel] = useState(0);
-    const [visibleBlindData, setVisibleBlindData] = useState([]);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentLevel((prevLevel) => {
-                const newLevel = prevLevel + 1;
-                if (newLevel <= lengthOfArray) {
-                    setVisibleBlindData(levels.slice(0, newLevel));
-                } else {
-                    clearInterval(interval);
-                }
-                return newLevel;
-            });
-        }, 4000);
-
-        return () => clearInterval(interval);
-    }, [lengthOfArray, levels]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -55,7 +57,7 @@ export default function ListScreen({ navigation, route }) {
                     </View>
                 </View>
 
-                {visibleBlindData.map((level, index) => (
+                {levels.map((level, index) => (
                     <View key={index} style={[styles.row, styles.backgroundWhite]}>
 
                         <View style={[styles.column, styles.dataColumn]}>

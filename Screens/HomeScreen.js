@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StatusBar, TextInput } from 'react-native';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import styles from './Styles'; // Importing styles
+import styles from './Styles'; 
 
 export default function Homescreen({ navigation }) {
   const [inputValue, levelValue] = useState(''); 
