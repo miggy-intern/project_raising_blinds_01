@@ -22,8 +22,12 @@ export default function ListScreen({ navigation }) {
             y = 1.8;
         } else if (big_bind > 300 && big_bind <= 600) {
             y = 1.6;
-        } else {
+        } else if ( big_bind >= 600)  {
             y = 1.4; 
+        }
+
+        else{
+            y = 1.4;
         }
     
         small_bind = Math.round(small_bind * y);
